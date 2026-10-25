@@ -113,13 +113,13 @@
             font-size: 0.95rem;
         }
 
-        /* matching exercise */
-        .match-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 0.6rem 1rem;
+        /* Matching exercise updated to vertical list */
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
             background: #f9fcff;
-            padding: 1.2rem 1.2rem;
+            padding: 1.2rem 1.5rem;
             border-radius: 1.2rem;
             border: 1px solid #dbe8f2;
             margin-bottom: 0.5rem;
@@ -128,26 +128,25 @@
         .match-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            gap: 1rem;
             padding: 0.4rem 0;
+            border-bottom: 1px dashed #e2edf7;
+        }
+
+        .match-item:last-child {
+            border-bottom: none;
         }
 
         .match-left {
             font-weight: 500;
             color: #1e3a5a;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .match-left small {
-            color: #5f7d9c;
-            font-weight: 400;
-            margin-left: 0.2rem;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         select {
-            padding: 0.45rem 0.8rem;
+            padding: 0.5rem 0.8rem;
             border-radius: 2rem;
             border: 1.5px solid #b8cee4;
             background: white;
@@ -157,25 +156,13 @@
             cursor: pointer;
             outline: none;
             transition: 0.1s;
-            width: 100%;
-            max-width: 220px;
+            min-width: 200px;
+            max-width: 250px;
         }
 
         select:focus {
             border-color: #2a7faa;
             box-shadow: 0 0 0 3px rgba(42, 127, 170, 0.1);
-        }
-
-        .match-right {
-            font-size: 0.95rem;
-            color: #234c6e;
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 1.5rem;
-            border: 1px dashed #b8cee4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         /* multiple choice */
@@ -327,31 +314,19 @@
             color: #1e3f5c;
         }
 
-        .reset-link {
-            margin-left: 1rem;
-            color: #1f6ea0;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .small-note {
-            font-size: 0.85rem;
-            color: #5f7d9c;
-            margin-top: 0.5rem;
-        }
-
         @media (max-width: 650px) {
             .quiz-card {
                 padding: 1.3rem;
             }
-            .match-grid {
-                grid-template-columns: 1fr;
-                gap: 0.4rem;
+            .match-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 0.6rem 0;
             }
-            .match-left {
-                white-space: normal;
+            select {
+                width: 100%;
+                max-width: 100%;
             }
             .gap-item {
                 font-size: 0.9rem;
@@ -373,7 +348,7 @@
         <!-- ========== EXERCISE 1: MATCHING ========== -->
         <div class="section">
             <div class="section-title"><span>1</span> Match the halves</div>
-            <div class="match-grid" id="matchGrid">
+            <div class="match-list" id="matchGrid">
                 <!-- 1 -->
                 <div class="match-item">
                     <div class="match-left">1. If they don't stop that noise,</div>
@@ -614,9 +589,6 @@
                 mcq5: 'b', mcq6: 'b', mcq7: 'c', mcq8: 'b'
             };
 
-            // gap answers are stored in data-answer (comma separated possible correct)
-            // we'll get them from the input elements
-
             const checkBtn = document.getElementById('checkBtn');
             const resultPanel = document.getElementById('resultPanel');
             const resultMessage = document.getElementById('resultMessage');
@@ -663,10 +635,8 @@
 
                 // --- gap fill score ---
                 let gapScore = 0;
-                const gapInputs = [];
                 for (let i = 1; i <= 8; i++) {
                     const inp = document.getElementById('gap' + i);
-                    gapInputs.push(inp);
                     const correctList = inp.dataset.answer || '';
                     if (isGapCorrect(inp, correctList)) {
                         gapScore++;
@@ -692,7 +662,6 @@
                     }
                 }
 
-                // also highlight matching? maybe a subtle border? not needed but we can mark via background? skip
                 resultPanel.classList.add('show');
             }
 
@@ -718,22 +687,14 @@
                 }
             });
 
-            // Pre-fill some demo? no, keep blank
-
-            // optional: on page load, remove highlights if any
-            // ensure result panel hidden initially
             resultPanel.classList.remove('show');
 
-            // Optional: if user changes gap input, remove highlighting on that field? we keep it until check again
-            // better to remove wrong/correct highlight on input change? we can do that
             const allGapInputs = document.querySelectorAll('.gap-item input');
             allGapInputs.forEach(inp => {
                 inp.addEventListener('input', function() {
                     this.classList.remove('correct-highlight', 'wrong-highlight');
                 });
             });
-
-            // also reset select highlight? we didn't highlight selects, fine
         })();
     </script>
 </body>
