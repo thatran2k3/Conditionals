@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditionals · practice quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f5f7fc;
+            padding: 1.5rem 1rem;
+            color: #1e2b3c;
+        }
+
+        .quiz-card {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.2);
+            padding: 2rem 2rem 2.5rem;
+            border: 1px solid #dee7f0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #0b2b3b;
+        }
+
+        .subhead {
+            color: #4f6f8f;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            border-left: 4px solid #7aa9d9;
+            padding-left: 1rem;
+            font-weight: 400;
+        }
+
+        .name-section {
+            background: #eef4fa;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #cdddec;
+        }
+
+        .name-section label {
+            font-weight: 600;
+            color: #1e3b5a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .name-section input {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            border: 1.5px solid #b8cee4;
+            font-size: 1rem;
+            background: white;
+            transition: 0.15s;
+            outline: none;
+        }
+
+        .name-section input:focus {
+            border-color: #2a7faa;
+            box-shadow: 0 0 0 3px rgba(42, 127, 170, 0.15);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #cbdbe9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1f4a6e;
+        }
+
+        .section-title span {
+            background: #1f4a6e;
+            color: white;
+            border-radius: 40px;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        /* matching exercise */
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 0.6rem 1rem;
+            background: #f9fcff;
+            padding: 1.2rem 1.2rem;
+            border-radius: 1.2rem;
+            border: 1px solid #dbe8f2;
+            margin-bottom: 0.5rem;
+        }
+
+        .match-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+        }
+
+        .match-left {
+            font-weight: 500;
+            color: #1e3a5a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .match-left small {
+            color: #5f7d9c;
+            font-weight: 400;
+            margin-left: 0.2rem;
+        }
+
+        select {
+            padding: 0.45rem 0.8rem;
+            border-radius: 2rem;
+            border: 1.5px solid #b8cee4;
+            background: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f3a55;
+            cursor: pointer;
+            outline: none;
+            transition: 0.1s;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        select:focus {
+            border-color: #2a7faa;
+            box-shadow: 0 0 0 3px rgba(42, 127, 170, 0.1);
+        }
+
+        .match-right {
+            font-size: 0.95rem;
+            color: #234c6e;
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1.5rem;
+            border: 1px dashed #b8cee4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* multiple choice */
+        .mcq-item {
+            background: #f9fcff;
+            border: 1px solid #dbe8f2;
+            border-radius: 1rem;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .mcq-question {
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: #153650;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .mcq-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            background: white;
+            padding: 0.3rem 1rem 0.3rem 0.7rem;
+            border-radius: 2rem;
+            border: 1px solid #cfdeed;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .mcq-options label:hover {
+            background: #e6f0fa;
+        }
+
+        .mcq-options input[type="radio"] {
+            accent-color: #1f6ea0;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.2rem;
+        }
+
+        /* gap fill */
+        .gap-item {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.6rem;
+            background: #f9fcff;
+            border: 1px solid #dbe8f2;
+            border-radius: 2rem;
+            padding: 0.7rem 1.2rem;
+            margin-bottom: 0.7rem;
+            font-size: 1rem;
+            color: #14324b;
+        }
+
+        .gap-item input {
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            border: 1.5px solid #b8cee4;
+            font-size: 0.95rem;
+            width: auto;
+            min-width: 130px;
+            background: white;
+            transition: 0.1s;
+        }
+
+        .gap-item input:focus {
+            border-color: #2a7faa;
+            box-shadow: 0 0 0 2px rgba(42, 127, 170, 0.15);
+            outline: none;
+        }
+
+        .gap-item input.correct-highlight {
+            background: #e4f3e6;
+            border-color: #3c9e5c;
+        }
+
+        .gap-item input.wrong-highlight {
+            background: #ffe9e9;
+            border-color: #cc5f5f;
+        }
+
+        .btn-check {
+            background: #0b3b5e;
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 3rem;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            transition: 0.15s;
+            box-shadow: 0 6px 14px rgba(11, 59, 94, 0.25);
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .btn-check:hover {
+            background: #124e7a;
+            transform: scale(1.01);
+        }
+
+        .btn-check:active {
+            transform: scale(0.99);
+        }
+
+        .result-panel {
+            background: #e5f0fa;
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            border-left: 8px solid #1f6ea0;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .result-panel.show {
+            display: block;
+        }
+
+        .result-name {
+            font-weight: 700;
+            color: #0b2b3b;
+            font-size: 1.3rem;
+        }
+
+        .score-badge {
+            background: #1f6ea0;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .feedback-detail {
+            margin-top: 0.7rem;
+            font-size: 1rem;
+            color: #1e3f5c;
+        }
+
+        .reset-link {
+            margin-left: 1rem;
+            color: #1f6ea0;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .small-note {
+            font-size: 0.85rem;
+            color: #5f7d9c;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 650px) {
+            .quiz-card {
+                padding: 1.3rem;
+            }
+            .match-grid {
+                grid-template-columns: 1fr;
+                gap: 0.4rem;
+            }
+            .match-left {
+                white-space: normal;
+            }
+            .gap-item {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-card">
+        <h1>📘 Conditionals</h1>
+        <div class="subhead">Exercise 1 matching · Exercise 2 multiple choice · Exercise 3 gap fill</div>
+
+        <!-- Name -->
+        <div class="name-section">
+            <label for="studentName"><span>🧑‍🎓</span> Your name:</label>
+            <input type="text" id="studentName" placeholder="Type your full name" autocomplete="off">
+        </div>
+
+        <!-- ========== EXERCISE 1: MATCHING ========== -->
+        <div class="section">
+            <div class="section-title"><span>1</span> Match the halves</div>
+            <div class="match-grid" id="matchGrid">
+                <!-- 1 -->
+                <div class="match-item">
+                    <div class="match-left">1. If they don't stop that noise,</div>
+                    <select id="match1" data-answer="c">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 2 -->
+                <div class="match-item">
+                    <div class="match-left">2. If I had enough money for a holiday,</div>
+                    <select id="match2" data-answer="f">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 3 -->
+                <div class="match-item">
+                    <div class="match-left">3. If you can't repair your headphones,</div>
+                    <select id="match3" data-answer="d">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 4 -->
+                <div class="match-item">
+                    <div class="match-left">4. I'd be ill</div>
+                    <select id="match4" data-answer="a">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 5 -->
+                <div class="match-item">
+                    <div class="match-left">5. If we had more space at home,</div>
+                    <select id="match5" data-answer="g">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 6 -->
+                <div class="match-item">
+                    <div class="match-left">6. Ice cream melts</div>
+                    <select id="match6" data-answer="h">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 7 -->
+                <div class="match-item">
+                    <div class="match-left">7. I'll see you on Saturday night</div>
+                    <select id="match7" data-answer="b">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+                <!-- 8 -->
+                <div class="match-item">
+                    <div class="match-left">8. Call me</div>
+                    <select id="match8" data-answer="e">
+                        <option value="">-- choose --</option>
+                        <option value="a">a. if I ate that.</option>
+                        <option value="b">b. unless I have to babysit.</option>
+                        <option value="c">c. I'll go next door and complain.</option>
+                        <option value="d">d. you might need to buy new ones.</option>
+                        <option value="e">e. if you fancy a chat.</option>
+                        <option value="f">f. I'd go to Iceland.</option>
+                        <option value="g">g. we could have a dog.</option>
+                        <option value="h">h. if you don't keep it in the freezer.</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXERCISE 2: MULTIPLE CHOICE ========== -->
+        <div class="section">
+            <div class="section-title"><span>2</span> Choose the correct verb form</div>
+            <div id="mcqContainer">
+                <!-- 1 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">1. If the bus is late, I ___ late for school.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq1" value="a"> 'll be</label>
+                        <label><input type="radio" name="mcq1" value="b"> 'd be</label>
+                        <label><input type="radio" name="mcq1" value="c"> was</label>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">2. I'll phone Charlie from home later if I ___ .</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq2" value="a"> remembered</label>
+                        <label><input type="radio" name="mcq2" value="b"> remember</label>
+                        <label><input type="radio" name="mcq2" value="c"> 'll remember</label>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">3. If I go to the shops this afternoon, I ___ some chocolate for you.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq3" value="a"> buy</label>
+                        <label><input type="radio" name="mcq3" value="b"> 'll buy</label>
+                        <label><input type="radio" name="mcq3" value="c"> would buy</label>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">4. If I ___ enough money, you know I'd lend it to you.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq4" value="a"> have</label>
+                        <label><input type="radio" name="mcq4" value="b"> would</label>
+                        <label><input type="radio" name="mcq4" value="c"> had</label>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">5. I ___ borrow my parents' car if I had my driving licence.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq5" value="a"> can</label>
+                        <label><input type="radio" name="mcq5" value="b"> could</label>
+                        <label><input type="radio" name="mcq5" value="c"> 'll</label>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">6. I ___ tell anyone if you tell me.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq6" value="a"> wouldn't</label>
+                        <label><input type="radio" name="mcq6" value="b"> won't</label>
+                        <label><input type="radio" name="mcq6" value="c"> not</label>
+                    </div>
+                </div>
+                <!-- 7 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">7. If there's any cake left, I ___ another piece.</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq7" value="a"> had</label>
+                        <label><input type="radio" name="mcq7" value="b"> would have</label>
+                        <label><input type="radio" name="mcq7" value="c"> 'll have</label>
+                    </div>
+                </div>
+                <!-- 8 -->
+                <div class="mcq-item">
+                    <div class="mcq-question">8. If you had three wishes, what ___ you wish for?</div>
+                    <div class="mcq-options">
+                        <label><input type="radio" name="mcq8" value="a"> did</label>
+                        <label><input type="radio" name="mcq8" value="b"> would</label>
+                        <label><input type="radio" name="mcq8" value="c"> will</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXERCISE 3: GAP FILL ========== -->
+        <div class="section">
+            <div class="section-title"><span>3</span> Write one word</div>
+            <div id="gapContainer">
+                <div class="gap-item">1. If I <input type="text" id="gap1" placeholder="word" data-answer="had, earned, saved"> enough money, I'd buy a car.</div>
+                <div class="gap-item">2. If I <input type="text" id="gap2" placeholder="word" data-answer="go"> to Dan's party, I'll call you.</div>
+                <div class="gap-item">3. I <input type="text" id="gap3" placeholder="word" data-answer="would, 'd, could, might"> sleep better if I didn't have to share a room.</div>
+                <div class="gap-item">4. <input type="text" id="gap4" placeholder="word" data-answer="Will, Can"> you call me when you get there?</div>
+                <div class="gap-item">5. If I <input type="text" id="gap5" placeholder="word" data-answer="don't"> have too much homework to do this weekend, I'll come out with you.</div>
+                <div class="gap-item">6. I'd <input type="text" id="gap6" placeholder="word" data-answer="be, feel, get"> really bored without my phone!</div>
+                <div class="gap-item">7. If you <input type="text" id="gap7" placeholder="word" data-answer="do, take, get"> regular exercise, you'll feel a lot better.</div>
+                <div class="gap-item">8. You don't need to call me unless you <input type="text" id="gap8" placeholder="word" data-answer="have, notice, see, experience, find"> a problem.</div>
+            </div>
+        </div>
+
+        <!-- check button -->
+        <button class="btn-check" id="checkBtn">✓ Check answers</button>
+
+        <!-- result panel -->
+        <div class="result-panel" id="resultPanel">
+            <div id="resultMessage"></div>
+            <div class="feedback-detail" id="feedbackDetail"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Answers
+            const matchAnswers = {
+                match1: 'c', match2: 'f', match3: 'd', match4: 'a',
+                match5: 'g', match6: 'h', match7: 'b', match8: 'e'
+            };
+
+            const mcqAnswers = {
+                mcq1: 'a', mcq2: 'b', mcq3: 'b', mcq4: 'c',
+                mcq5: 'b', mcq6: 'b', mcq7: 'c', mcq8: 'b'
+            };
+
+            // gap answers are stored in data-answer (comma separated possible correct)
+            // we'll get them from the input elements
+
+            const checkBtn = document.getElementById('checkBtn');
+            const resultPanel = document.getElementById('resultPanel');
+            const resultMessage = document.getElementById('resultMessage');
+            const feedbackDetail = document.getElementById('feedbackDetail');
+            const studentNameInput = document.getElementById('studentName');
+
+            function normalize(str) {
+                return str.trim().toLowerCase().replace(/\s+/g, ' ');
+            }
+
+            function isGapCorrect(inputEl, correctList) {
+                const userVal = normalize(inputEl.value);
+                if (userVal === '') return false;
+                const answers = correctList.split(',').map(s => normalize(s));
+                return answers.includes(userVal);
+            }
+
+            function evaluate() {
+                // get name (fallback)
+                let name = studentNameInput.value.trim();
+                if (name === '') name = 'Student';
+
+                // --- matching score ---
+                let matchScore = 0;
+                for (let i = 1; i <= 8; i++) {
+                    const sel = document.getElementById('match' + i);
+                    if (sel && sel.value === matchAnswers['match' + i]) {
+                        matchScore++;
+                    }
+                }
+
+                // --- mcq score ---
+                let mcqScore = 0;
+                for (let i = 1; i <= 8; i++) {
+                    const radios = document.getElementsByName('mcq' + i);
+                    let selected = null;
+                    for (let r of radios) {
+                        if (r.checked) { selected = r.value; break; }
+                    }
+                    if (selected === mcqAnswers['mcq' + i]) {
+                        mcqScore++;
+                    }
+                }
+
+                // --- gap fill score ---
+                let gapScore = 0;
+                const gapInputs = [];
+                for (let i = 1; i <= 8; i++) {
+                    const inp = document.getElementById('gap' + i);
+                    gapInputs.push(inp);
+                    const correctList = inp.dataset.answer || '';
+                    if (isGapCorrect(inp, correctList)) {
+                        gapScore++;
+                    }
+                }
+
+                const total = matchScore + mcqScore + gapScore;
+                const maxTotal = 24;
+
+                // Show result with name and score
+                resultMessage.innerHTML = `👋 <span class="result-name">${escapeHtml(name)}</span>, you scored <span class="score-badge">${total} / ${maxTotal}</span>`;
+                feedbackDetail.innerHTML = `Matching: ${matchScore}/8 · Multiple choice: ${mcqScore}/8 · Gap fill: ${gapScore}/8`;
+
+                // highlight gap fill inputs (visual feedback)
+                for (let i = 1; i <= 8; i++) {
+                    const inp = document.getElementById('gap' + i);
+                    const correctList = inp.dataset.answer || '';
+                    inp.classList.remove('correct-highlight', 'wrong-highlight');
+                    if (isGapCorrect(inp, correctList)) {
+                        inp.classList.add('correct-highlight');
+                    } else {
+                        inp.classList.add('wrong-highlight');
+                    }
+                }
+
+                // also highlight matching? maybe a subtle border? not needed but we can mark via background? skip
+                resultPanel.classList.add('show');
+            }
+
+            // small helper to avoid XSS
+            function escapeHtml(unsafe) {
+                return unsafe.replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            // attach check handler
+            checkBtn.addEventListener('click', evaluate);
+
+            // allow pressing enter in name field to trigger check
+            studentNameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    evaluate();
+                }
+            });
+
+            // Pre-fill some demo? no, keep blank
+
+            // optional: on page load, remove highlights if any
+            // ensure result panel hidden initially
+            resultPanel.classList.remove('show');
+
+            // Optional: if user changes gap input, remove highlighting on that field? we keep it until check again
+            // better to remove wrong/correct highlight on input change? we can do that
+            const allGapInputs = document.querySelectorAll('.gap-item input');
+            allGapInputs.forEach(inp => {
+                inp.addEventListener('input', function() {
+                    this.classList.remove('correct-highlight', 'wrong-highlight');
+                });
+            });
+
+            // also reset select highlight? we didn't highlight selects, fine
+        })();
+    </script>
+</body>
+</html>
